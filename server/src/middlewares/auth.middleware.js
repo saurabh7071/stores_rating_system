@@ -1,4 +1,3 @@
-// src/middleware/auth.middleware.js
 import jwt from "jsonwebtoken";
 import { ApiError } from "../utils/ApiError.js";
 import { pool } from "../config/db.js";
@@ -48,3 +47,18 @@ export const requireRole = (role) => (req, res, next) => {
     if (req.user.role !== role) return next(new ApiError(403, "Insufficient permissions"));
     return next();
 };
+
+export const requireAdmin = (req, res, next) => {
+    if (!req.user || req.user.role !== "ADMIN") {
+        throw new ApiError(403, "Admin access required");
+    }
+    next();
+};
+
+export const requireStoreOwner = (req, res, next) => {
+    if (!req.user || req.user.role !== "STORE_OWNER") {
+        throw new ApiError(403, "Store owner access required");
+    }
+    next();
+};
+

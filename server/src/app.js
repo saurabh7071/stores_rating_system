@@ -24,12 +24,15 @@ app.get("/health", (req, res) =>{
 })
 
 // route import
-import authRoutes from "./routes/auth.routes.js";
+import userRoutes from "./routes/user.routes.js";
+import systemAdminRoutes from "./routes/systemAdmin.routes.js";
+import storeOwnerRoutes from "./routes/storeOwner.routes.js";
 import { errorHandler } from "./utils/errorHandler.js";
 
 // route declaration
-app.use("/api/v1/auth", authRoutes);
-
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/admin", systemAdminRoutes);
+app.use("/api/v1/storeOwner", storeOwnerRoutes);
 app.use(errorHandler);
 
 export {app};

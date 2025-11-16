@@ -30,5 +30,13 @@ export const config = {
         max: Number(process.env.PG_MAX|| 10),
         idleTimeoutMillis: Number(process.env.PG_IDLE_TIMEOUT || 30000),
         connectionTimeoutMillis: Number(process.env.PG_CONNECTION_TIMEOUT || 2000),
-    }
+    },
+    jwtSecret: process.env.JWT_ACCESS_SECRET,
+    jwtExpiresIn: process.env.JWT_ACCESS_EXPIRY,
+    jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
+    jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRY,
+
+    adminEmail: process.env.ADMIN_EMAIL,
+    adminPassword: process.env.ADMIN_PASSWORD,
+
 };

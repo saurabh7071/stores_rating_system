@@ -76,17 +76,14 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Invalid credentials");
     }
 
-    // Update last_login timestamp (safe)
     await pool.query("UPDATE users SET last_login = NOW() WHERE id = $1", [user.id]);
 
-    // Create JWT: include minimal claims
     const tokenPayload = { sub: user.id, role: user.role };
     const token = jwt.sign(tokenPayload, config.jwtSecret, {
         expiresIn: config.jwtExpiresIn,
         algorithm: "HS256",
     });
 
-    // Don't return password_hash
     return res.status(201).json(
         new ApiResponse(200, { token, user: { id: user.id, email: user.email, role: user.role } }, "Login successful")
     );
